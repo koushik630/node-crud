@@ -1,0 +1,165 @@
+<% include ../../partials/head %>
+<% include ../../partials/header %>
+<style>
+.btn-bs-file{
+    position:relative;
+}
+.btn-bs-file input[type="file"]{
+    position: absolute;
+    top: -9999999;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    width:0;
+    height:0;
+    outline: none;
+    cursor: inherit;
+}
+</style>
+<div class="container">
+  <div class="jumbotron">
+  <h3>Edit Profile</h3>
+</div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-sm-8">
+    	<form method="POST" id="add_form" action="/profile-edit-post/<%= req.user.id %>">
+    	  <div class="form-group">
+    	    <label for="name">First Name <span class="require-class">*</span></label>
+    	    <input type="text" class="form-control" id="f_name" name="f_name" value="<%= req.user.f_name%>" autocomplete="off" data-validation="required">
+    	  </div>
+        <div class="form-group">
+          <label for="name">Last Name <span class="require-class">*</span></label>
+          <input type="text" class="form-control" id="l_name" name="l_name" value="<%= req.user.l_name%>" autocomplete="off" data-validation="required">
+        </div>
+
+        <div class="form-group" style="margin-bottom:20px;">
+    	    <label for="upload" class="btn-bs-file btn btn-sm btn-primary">Change Profile Picture
+          <input type="file" id="upload" value="Choose a file" accept="image/*" />
+          <input type="hidden" name="upload_hidden" id="upload_hidden" value="" />
+          </label>
+          </br>
+          <div style="display:none" id="cropDiv">
+            <div id="upload-demo"></div>
+            <div id="img_preview"></div>
+            </br>
+            <a class="upload-result btn btn-info result">Crop</a>
+            <a class="upload-result btn btn-info result" onClick="window.location.reload()">Reload</a>
+          </div>
+          <div id="cropDiv_ex">
+          <% if(req.user.profile_pic){%>
+          <img id="blah" src="/uploads/user/images/<%= req.user.profile_pic %>" alt="your image" height="120" class="circle-avatar"/>
+          <%} else if(req.user.image=='' || req.user.image==null){%>
+              <img id="blah" src="/uploads/no_image/productNoImage.jpeg" alt="your image" height="80" />
+            <%}%>
+          </div>
+    	  </div>
+        <div class="form-group">
+    	  <input type="submit" class="btn btn-success" value="Update">
+    	  <button type="reset" class="btn btn-danger">Reset</button>
+      </div>
+    	</form>
+    </div>
+  </div>
+  </div>
+</div>
+<% include ../../partials/footer %>
+<script>
+  $.validate();
+  $('#my-textarea').restrictLength( $('#max-length-element') );
+
+  // function readURL(input) {
+  //   if (input.files && input.files[0]) {
+  //     var reader = new FileReader();
+  //
+  //     reader.onload = function(e) {
+  //       $('#blah').attr('src', e.target.result);
+  //     }
+  //
+  //     reader.readAsDataURL(input.files[0]);
+  //   }
+  // }
+  // $("#imgInp").change(function() {
+  //   readURL(this);
+  // });
+
+</script>
+<script src="/assets/croppie/js/prism.js"></script>
+<script src="/assets/croppie/js/sweetalert.min.js"></script>
+<script src="/assets/croppie/js/croppie.js"></script>
+<script>
+  var $uploadCrop;
+  function readFile(input) {
+        $("#cropDiv").show();
+        $("#cropDiv_ex").hide();
+    if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+        $('.upload-demo').addClass('ready');
+              $uploadCrop.croppie('bind', {
+                url: e.target.result
+              }).then(function(){
+                console.log('jQuery bind complete');
+              });
+
+            }
+          //  console.log(input.files[0]);
+            reader.readAsDataURL(input.files[0]);
+        }
+        else {
+          swal("Sorry - you're browser doesn't support the FileReader API");
+      }
+  }
+
+  $uploadCrop = $('#upload-demo').croppie({
+    viewport: {
+      width: 200,
+      height: 200,
+      type: 'square'
+    },
+    enableExif: true
+  });
+  $('#upload').on('change', function () {
+
+    readFile(this);
+  });
+  $('.upload-result').on('click', function (ev) {
+    $uploadCrop.croppie('result', {
+      type: 'canvas',
+      size: 'viewport'
+    }).then(function (resp) {
+
+      var form = document.getElementById("myAwesomeForm");
+
+      var ImageURL = resp;
+      // Split the base64 string in data and contentType
+      var block = ImageURL.split(";");
+      // Get the content type of the image
+      var contentType = block[0].split(":")[1];// In this case "image/gif"
+      // get the real base64 content of the file
+      var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+      var img = document.createElement("img");
+      // added `width` , `height` properties to `img` attributes
+      img.src = "data:image/png;base64," + realData;
+      $("#img_preview").html(img);
+      $.growl.notice({ title: "Success!",message: "Cropped Successfully." });
+      $("#upload_hidden").val(img.src);
+      console.log(img);
+      // Convert it to a blob to upload
+    //  var blob = b64toBlob(realData, contentType);
+      // console.log(blob);
+      // // Create a FormData and append the file with "image" as parameter name
+      // var formDataToUpload = new FormData(form);
+      // formDataToUpload.append("image", blob);
+
+
+
+
+      // popupResult({
+      //   src: resp
+      // });
+    });
+  });
+</script>
+
+<!-- jQuery is required -->

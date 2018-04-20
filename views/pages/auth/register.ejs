@@ -1,0 +1,80 @@
+<% include ../../partials/head %>
+<% include ../../partials/header %>
+<body>
+<div class="container">
+  <div class="jumbotron">
+  <h3>User Registration</h3>
+</div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%if(query.successMsg) {%>
+        <div class="alert alert-success">
+            <strong>Success!</strong> <%= query.successMsg %>, Please <a href="/login"> Click Here</a> to login
+        </div>
+      <%}%>
+      <div class="col-sm-8">
+    	<form method="POST" id="add_form" action="/register-post">
+        <div class="form-group">
+    	    <label for="name">First Name <span class="require-class">*</span></label>
+    	    <input type="text" class="form-control" name="f_name" id="f_name" autocomplete="off" data-validation="required">
+    	  </div>
+        <div class="form-group">
+    	    <label for="name">Last Name <span class="require-class">*</span></label>
+    	    <input type="text" class="form-control" name="l_name" id="l_name" autocomplete="off" data-validation="required">
+    	  </div>
+    	  <div class="form-group">
+    	    <label for="name">Username <span class="require-class">*</span></label>
+    	    <input type="text" class="form-control" name="username" id="username" autocomplete="off" data-validation="required">
+    	  </div>
+        <div class="form-group">
+    	    <label for="name">Email <span class="require-class">*</span></label>
+    	    <input type="email" class="form-control" name="email" id="email" autocomplete="off" data-validation="required">
+    	  </div>
+        <div class="form-group">
+          <label for="name">Password <span class="require-class">*</span></label>
+          <input type="password" id="pass_confirmation" name="pass_confirmation" class="form-control" data-validation="strength"
+		 data-validation-strength="2">
+        </div>
+        <div class="form-group">
+          <label for="name">Repeat Password <span class="require-class">*</span></label>
+           <input type="password" id="pass" name="pass" class="form-control" data-validation="confirmation">
+        </div>
+        <div class="form-group">
+    	  <button type="submit" class="btn btn-success">Register</button>
+    	  <button type="reset" class="btn btn-danger">Reset</button>
+      </div>
+    	</form>
+    </div>
+  </div>
+  </div>
+</div>
+<% include ../../partials/footer %>
+<script>
+  $.validate({
+    modules : 'location, date, security, file',
+    onModulesLoaded : function() {
+    //  $('#country').suggestCountry();
+    }
+  });
+
+  // Restrict presentation length
+  //$('#presentation').restrictLength( $('#pres-max-length') );
+
+</script>
+<script>
+  // function readURL(input) {
+  //   if (input.files && input.files[0]) {
+  //     var reader = new FileReader();
+  //
+  //     reader.onload = function(e) {
+  //       $('#blah').attr('src', e.target.result);
+  //       $("#blah").show();
+  //     }
+  //
+  //     reader.readAsDataURL(input.files[0]);
+  //   }
+  // }
+  // $("#imgInp").change(function() {
+  //   readURL(this);
+  // });
+</script>

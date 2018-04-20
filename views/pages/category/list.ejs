@@ -1,0 +1,60 @@
+<% include ../../partials/head %>
+<% include ../../partials/header %>
+<div class="container">
+  <h2>Category List <a href="/category-add" class="btn btn-info"><i class="fas fa-plus"></i> Category</a> <a href="/product-add" class="btn btn-info"><i class="fas fa-plus"></i> Product</a></h2>
+  <div class="panel panel-default">
+    <div class="panel-body">
+          <%if(query.successMsg) {%>
+            <div class="alert alert-success">
+                <strong>Success!</strong> <%= query.successMsg %>
+            </div>
+          <%}%>
+        <table id="myTable" class="display">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th width="30%">Description</th>
+            <th width="15%">Product Picture</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% for(var i=0;i<list.length;i++) {%>
+        <tr>
+            <td><%= i+1 %></td>
+            <td><%= list[i].name %></td>
+            <td><%= list[i].description %></td>
+            <td>
+              <% if(list[i].image){%>
+              <img src="/uploads/categories/images/<%= list[i].image %>" height="80"/>
+              <%} else if(list[i].image=='' || list[i].image==null){%>
+                  <img src="/uploads/no_image/productNoImage.jpeg" height="80"/>
+                <%}%>
+
+            </td>
+            <td>
+              <%if(list[i].status=='ACTIVE') {%>
+              <a href="/category-status-update/<%=list[i].id%>" class="btn btn-success">Active</a>
+              <%}%>
+              <%if(list[i].status=='INACTIVE') {%>
+              <a href="/category-status-update/<%=list[i].id%>" class="btn btn-danger">In-active</a>
+              <%}%>
+              <%if(list[i].status=='ALL') {%>
+              <span class="label label-warning">All Category</span>
+              <%}%>
+              <a href="/category-edit/<%=list[i].id%>" class="btn btn-primary">Edit</a>
+            </td>
+        </tr>
+        <% }%>
+    </tbody>
+</table>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>

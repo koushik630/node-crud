@@ -1,0 +1,44 @@
+<% include ../../partials/head %>
+<% include ../../partials/header %>
+<div class="container">
+  <div class="jumbotron">
+  <h3>Profile Details <a href="/profile-edit/<%= req.user.id%>" class="btn btn-info"><i class="fas fa-user"></i> Edit</a></h3>
+</div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%if(query.successMsg) {%>
+        <div class="alert alert-success">
+            <strong>Success!</strong> <%= query.successMsg %>
+        </div>
+      <%}%>
+      <div class="col-sm-8">
+    	   <address>
+           <strong>First Name:</strong><br>
+           <p><%= req.user.f_name%></p>
+         </address>
+         <address>
+           <strong>Last Name:</strong><br>
+           <p><%= req.user.l_name%></p>
+         </address>
+         <address>
+           <strong>Username</strong><br>
+           <p><%= req.user.username%></p>
+         </address>
+         <address>
+           <strong>Email</strong><br>
+           <p><%= req.user.email%></p>
+         </address>
+         <address>
+           <strong>Profile Image</strong><br>
+           <% if(req.user.profile_pic==null || req.user.profile_pic==''){%>
+           <img src="/uploads/no_image/productNoImage.jpeg" height="120" class="img-circle"/>
+           <%}%>
+           <% if(req.user.profile_pic){%>
+           <img src="/uploads/user/images/<%= req.user.profile_pic %>" alt="/uploads/products/images/<%= req.user.profile_pic %>" class="img-circle" height="120">
+           <%}%>
+         </address>
+    </div>
+  </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

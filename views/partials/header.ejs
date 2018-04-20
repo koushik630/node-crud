@@ -1,0 +1,30 @@
+<header>
+    <nav class="navbar navbar-default" style="background-color: #0e0e0e;border-color: #eee">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Express Crud Example</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li <% if(page_name == 'home') {%> class="active" <%} %> >  <a href="/">Home</a></li>
+          <% if(req.isAuthenticated()==false){%>
+          <li <% if(page_name == 'register') {%> class="active" <%} %> > <a href="/register"><i class="far fa-registered"></i> Register</a></li>
+          <%}%>
+          <li <% if(page_name == 'about') {%> class="active" <%} %> > <a href="/about">About</a></li>
+          <li <% if(page_name == 'category_list') {%> class="active" <%} %> > <a href="/categories"><i class="fas fa-list"></i>
+ Category</a></li>
+          <li <% if(page_name == 'product_list') {%> class="active" <%} %> > <a href="/products"><i class="fas fa-list"></i>Product</a></li>
+          <li <% if(page_name == 'chat') {%> class="active" <%} %> > <a href="/chat" target="_blank"><i class="fas fa-comments"></i>Chat</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if(req.isAuthenticated()==true){%>
+          <li <% if(page_name == 'profile_page') {%> class="active" <%} %>> <a href="/profile"><i class="fas fa-user"></i> Welcome <%= req.user.username %></a></li>
+          <li> <a href="/logout"><i class="fas fa-power-off"></i> Logout</a></li>
+          <%}%>
+          <% if(req.isAuthenticated()==false){%>
+          <li <% if(page_name == 'login') {%> class="active" <%} %> style="float:right;" > <a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+          <%}%>
+        </ul>
+      </div>
+    </nav>
+</header>
