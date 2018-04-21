@@ -1,45 +1,48 @@
 {
-  "name": "crud_express",
+  "name": "c",
   "version": "1.0.0",
-  "description": "angular 2 crud express",
+  "description": "test",
   "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
+  "engines" : { "node" : ">=4.5.0 <5 || >=5.10.0 <6" },
   "dependencies": {
     "bcrypt": "^1.0.3",
-    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
-    "connect-flash": "^0.1.1",
     "bookshelf": "^0.13.3",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
+    "cropper": "^4.0.0",
     "dotenv": "^5.0.1",
     "ejs": "^2.5.8",
     "express": "^4.16.3",
-    "express-sessions": "^1.0.6",
     "express-mysql-session": "^1.2.3",
-    "express-session": "^1.15.6",
+    "express-sessions": "^1.0.6",
     "formidable": "^1.2.1",
+    "jquery": "^3.3.1",
+    "jsdom": "^11.7.0",
     "knex": "^0.14.4",
+    "lodash": "^4.17.5",
     "multer": "^1.3.0",
     "mysql": "^2.15.0",
+    "node-jsdom": "^3.1.5",
     "passport": "^0.4.0",
-    "router": "^1.3.2",
     "socket.io": "^2.1.0",
     "unique-filename": "^1.1.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/koushik630/node-crud.git"
+    "url": "git+https://github.com/koushikDuttaMatrix/crud_express.git"
   },
+  "keywords": [
+    "test"
+  ],
   "author": "koushik dutta",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/koushik630/node-crud/issues"
+    "url": "https://github.com/koushikDuttaMatrix/crud_express/issues"
   },
-  "homepage": "https://github.com/koushik630/node-crud#readme"
+  "homepage": "https://github.com/koushikDuttaMatrix/crud_express#readme"
 }
